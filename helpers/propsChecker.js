@@ -1,6 +1,5 @@
 import validHtmlTags from '../const/htmlTags';
 import validDomEvents from '../const/domEvents';
-import isHtmlString from '../helpers/isHtmlString';
 
 const propsAreValid = (props) => {
   try {
@@ -32,13 +31,18 @@ const propsAreValid = (props) => {
       });
     }
 
-    if (props.eventHandlers) {
-      for (let event in props.eventHandlers) {
+    if (props.eventHandlers !== undefined) {
+      const item = props.eventHandlers;
+      if (typeof item !== 'object' || Array.isArray(item) || item === null) {
+        throw new Error('props.eventHandlers isn\'t valid Block events object');
+      }
+
+      for (let event in item) {
         if (!validDomEvents.includes(event)) {
           throw new Error(`Event ${event} in props.eventHandlers isn't valid DOM event`);
         }
 
-        if (typeof props.eventHandlers[event] !== 'function') {
+        if (typeof item[event] !== 'function') {
           throw new Error(`Handler for ${event} is not a function`);
         }
       }
@@ -46,7 +50,7 @@ const propsAreValid = (props) => {
   } catch (error) {
     return {
       ok: false,
-      error,
+      error: error.message,
     };
   }
 

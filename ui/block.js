@@ -34,7 +34,9 @@ function Block(props) {
         break;
 
       case 'eventHandlers':
-        // TODO set handlers
+        for (let event in props[prop]) {
+          node.addEventListener(event, props[prop][event]);
+        }
         break;
 
       default:
