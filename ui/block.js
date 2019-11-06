@@ -1,53 +1,42 @@
-const childrenFallback = function (children) {
-  console.log(children);
-  if (typeof children === 'function'
-    && children.__proto__
-    && children.__proto__.render
-  ) {
-    console.log(children);
-    console.log('------');
-    return children.render();
+import propsAreValid from '../helpers/propsChecker';
+
+/**
+ * Block is a constructor for DOM node.
+ * @param {Object} props
+ * @param {string} props.tag - html tag to render
+ * @param {string} [props.id]
+ * @param {string} [props.className]
+ * @param {Object} [props.children] - an array of func, block or class based components
+ * @param {Object} [props.eventHandlers] - { ['eventName']: eventHandler, click: () => null }
+ */
+function Block(props) {
+  const propsCheck = propsAreValid(props);
+  if (!propsCheck.ok) {
+    throw new Error(`Failed to construct DOM Node: ${propsCheck.error}`);
   }
 
-  if (typeof children === 'function') return children();
+  const node = document.createElement(props.tag);
 
-  return children;
-}
-
-export default function block (type, parameters) {
-  const element = document.createElement(type);
-  const keys = Object.keys(parameters);
-
-  for (let i = 0; i <= keys.length; i += 1) {
-    const targetKey = keys[i];
-    const targetValue = parameters[targetKey];
-
-    switch (targetKey) {
+  for (let prop in props) {
+    switch (prop) {
       case 'id':
-        element.id = targetValue;
+        node.id = props[prop];
         break;
       case 'className':
-        element.className = targetValue;
+        node.className = props[prop];
         break;
       case 'children':
-        if (Array.isArray(targetValue)) {
-          for (let t = targetValue.length - 1; t >= 0; t -= 1) {
-            element.insertBefore(childrenFallback(targetValue[t]), element.firstChild);
-          }
-
-          break;
-        }
-
-        element.append(childrenFallback(targetValue));
-
+        // TODO add children
         break;
-      case 'onClick':
-        element.addEventListener('click', targetValue);
+      case 'eventHandlers':
+        // TODO set handlers
         break;
       default:
         break;
     }
   }
 
-  return element;
+  return node;
 }
+
+export default Block;

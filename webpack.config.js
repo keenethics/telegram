@@ -12,6 +12,14 @@ module.exports = {
     contentBase: path.join(__dirname, 'public'),
     port: 3000,
   },
+  module: {
+    rules: [
+      {
+        test: /.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+    ],
+  },
   optimization: {
     minimizer: [
       new TerserPlugin({

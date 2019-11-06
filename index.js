@@ -1,5 +1,7 @@
 import { render } from './ui';
 
-import sidebar from './components/sidebar';
+import './styles/index.scss';
 
-render('root', sidebar);
+import Header from './components/header';
+
+render('root', Header);
