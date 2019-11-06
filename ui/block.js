@@ -2,12 +2,12 @@ import propsAreValid from '../helpers/propsChecker';
 
 /**
  * Block is a constructor for DOM node.
- * @param {Object} props
+ * @param {object} props
  * @param {string} props.tag - html tag to render
  * @param {string} [props.id]
  * @param {string} [props.className]
- * @param {Object} [props.children] - an array of func, block or class based components
- * @param {Object} [props.eventHandlers] - { ['eventName']: eventHandler, click: () => null }
+ * @param {object} [props.children] - an array of func, block or class based components
+ * @param {object} [props.eventHandlers] - { ['eventName']: eventHandler, click: () => null }
  */
 function Block(props) {
   const propsCheck = propsAreValid(props);
@@ -22,15 +22,21 @@ function Block(props) {
       case 'id':
         node.id = props[prop];
         break;
+
       case 'className':
         node.className = props[prop];
         break;
+
       case 'children':
-        // TODO add children
+        props[prop].forEach((child) => {
+          node.append(child);
+        });
         break;
+
       case 'eventHandlers':
         // TODO set handlers
         break;
+
       default:
         break;
     }

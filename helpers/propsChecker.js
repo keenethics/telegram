@@ -1,5 +1,6 @@
 import validHtmlTags from '../const/htmlTags';
 import validDomEvents from '../const/domEvents';
+import isHtmlString from '../helpers/isHtmlString';
 
 const propsAreValid = (props) => {
   try {
@@ -19,8 +20,16 @@ const propsAreValid = (props) => {
       throw new Error(`props.className has invalid type: ${typeof props.className}`);
     }
 
-    if (props.children && props.children.length) {
-      // TODO iterate over children and check that it is a function, instance of Block or BaseComponent
+    if (props.children) {
+      if (!Array.isArray(props.children)) {
+        throw new Error('props.children should be an array');
+      }
+
+      props.children.forEach((child) => {
+        if (typeof child !== 'string' && !(child instanceof HTMLElement)) {
+          throw new Error(`${child} is not valid child element`);
+        }
+      });
     }
 
     if (props.eventHandlers) {
@@ -35,7 +44,6 @@ const propsAreValid = (props) => {
       }
     }
   } catch (error) {
-    console.log(error);
     return {
       ok: false,
       error,
