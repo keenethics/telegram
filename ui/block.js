@@ -7,7 +7,8 @@ import propsAreValid from '../helpers/propsChecker';
  * @param {string} [props.id]
  * @param {string} [props.className]
  * @param {object} [props.children] - an array of func, block or class based components
- * @param {object} [props.eventHandlers] - { ['eventName']: eventHandler, click: () => null }
+ * @param {object} [props.eventHandlers] - { ['eventName']: eventHandler, click: () => null }.
+ *  Don't use arrow functions if you want to access Block methods
  */
 function Block(props) {
   const propsCheck = propsAreValid(props);
@@ -16,6 +17,15 @@ function Block(props) {
   }
 
   const node = document.createElement(props.tag);
+
+  this.destroy = () => {
+    if (props.eventHandlers) {
+      for (let event in props.eventHandlers) {
+        node.removeEventListener(event, props.eventHandlers[event]);
+      }
+    }
+    node.remove();
+  }
 
   for (let prop in props) {
     switch (prop) {
@@ -35,7 +45,8 @@ function Block(props) {
 
       case 'eventHandlers':
         for (let event in props[prop]) {
-          node.addEventListener(event, props[prop][event]);
+          const boundHandler = props[prop][event].bind(this);
+          node.addEventListener(event, boundHandler);
         }
         break;
 

@@ -1,16 +1,22 @@
 import { Block } from '../ui';
 
-const Header = Block({
+const Header = new Block({
   tag: 'header',
   className: 'header-class',
   id: 'header-id',
   children: [
     'hello world',
-    Block({ tag: 'span', children: ['hi i am nested child'] })
+    new Block({ tag: 'span', children: ['hi i am nested child'] })
   ],
   eventHandlers: {
-    click: () => console.log('click caught!'),
-    mouseenter: () => console.log('mouse entered'),
+    click: function () {
+      console.log('click caught! destroying');
+      this.destroy();
+    },
+    mouseleave: () => {
+      console.log('mouse leaving');
+      console.log('this is', this);
+    },
   }
 });
 
