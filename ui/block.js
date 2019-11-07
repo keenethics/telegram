@@ -2,22 +2,27 @@ import propsAreValid from '../helpers/propsChecker';
 
 /**
  * Block is a constructor for DOM node.
+ * Event handlers must NOT be arrow to preserve `this` pointing to Block's own context.
  * @param {object} props
  * @param {string} props.tag - html tag to render
  * @param {string} [props.id]
  * @param {string} [props.className]
  * @param {object} [props.children] - an array of func, block or class based components
- * @param {object} [props.eventHandlers] - { ['eventName']: eventHandler, click: () => null }
+ * @param {object} [props.eventHandlers] - { ['eventName']: eventHandler, click: function() { return null; } }
  */
 function Block(props) {
   const propsCheck = propsAreValid(props);
   if (!propsCheck.ok) {
     throw new Error(`Failed to construct DOM Node: ${propsCheck.error}`);
   }
+  this.props = props;
 
   const node = document.createElement(props.tag);
 
-  for (let prop in props) {
+  const propKeys = Object.keys(props);
+  for (let propIndex = 0; propIndex < propKeys.length; propIndex++) {
+    const prop = propKeys[propIndex];
+
     switch (prop) {
       case 'id':
         node.id = props[prop];
@@ -28,9 +33,9 @@ function Block(props) {
         break;
 
       case 'children':
-        props[prop].forEach((child) => {
-          node.append(child);
-        });
+        for (let childIndex = 0; childIndex < props[prop].length; childIndex++) {
+          node.append(props[prop][childIndex]);
+        }
         break;
 
       case 'eventHandlers':

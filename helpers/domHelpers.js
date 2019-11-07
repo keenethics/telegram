@@ -1,4 +1,4 @@
-export default function isHTML(str) {
+export function isHTML(str) {
   var a = document.createElement('div');
   a.innerHTML = str;
 
@@ -8,3 +8,4 @@ export default function isHTML(str) {
 
   return false;
 }
+

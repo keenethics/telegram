@@ -5,8 +5,8 @@ const Header = new Block({
   className: 'header-class',
   id: 'header-id',
   children: [
-    '<h1>hello world</h1>',
-    new Block({ tag: 'span', children: ['hi i am nested child'] })
+    'i am simple text',
+    new Block({ tag: 'span', children: ['hi i am nested html element'] })
   ],
   eventHandlers: {
     click: function () {
