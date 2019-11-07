@@ -9,9 +9,11 @@ export default class Store {
         return target[property];
       },
       set: function (target, key, value) {
+        Object.assign(target, { [key]: value });
+
         window.events.publish('change');
 
-        return Object.assign(target, { [key]: value });
+        return true;
       }
     });
   }

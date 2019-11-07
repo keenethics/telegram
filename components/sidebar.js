@@ -39,8 +39,9 @@ const increaseButton = block('button', {
   className: 'sidebar-increase-button',
   children: '+',
   onClick: function () {
-    let previousValue = counter.get('value');
-    counter.set('value', previousValue += 1);
+    let value = counter.get('value');
+
+    counter.set('value', value += 1);
   }
 });
 
@@ -48,8 +49,9 @@ const decreaseButton = block('button', {
   className: 'sidebar-decrease-button',
   children: '-',
   onClick: function () {
-    let previousValue = counter.get('value');
-    counter.set('value', previousValue -= 1);
+    let value = counter.get('value');
+
+    counter.set('value', value -= 1);
   }
 });
 
