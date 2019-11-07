@@ -9,7 +9,8 @@ const Header = new Block({
     new Block({ tag: 'span', children: ['hi i am nested html element'] })
   ],
   eventHandlers: {
-    click: function () {
+    click: function (event) {
+      console.log(event);
       console.log('click caught!');
     },
     mouseenter: () => {
