@@ -1,23 +1,34 @@
 import { block, Store, Component } from '../ui/index';
 
-const counter = new Store({
-  value: 0,
+const store = new Store({
+  counters: [
+    {
+      value: 1,
+    },
+    {
+      value: 0,
+    },
+  ],
 });
 
 class counterValue extends Component {
   constructor (props) {
     super(props);
 
-    this.counter = props.counter;
+    this.index = props.index;
+    this.store = props.store;
     this.element = null;
 
     this.render = this.render.bind(this);
 
-    props.counter.subscribe(this.render);
+    this.store.subscribe(this.render);
   }
 
   render () {
-    const counter = this.counter.get('value');
+    const counter = this.store.get('counters')[this.index].value;
+
+    console.log(this.store.get('counters'));
+
     const element = block('div', {
       className: 'sidebar-increase-button',
       children: counter,
@@ -29,43 +40,57 @@ class counterValue extends Component {
       return this.element;
     }
 
-    this.element.innerHTML = counter.toString();
+    this.element.innerHTML = counter;
   }
 }
 
-const counterValueComponent = new counterValue({ counter });
-
-const increaseButton = block('button', {
+const increaseButton = (index) => block('button', {
   className: 'sidebar-increase-button',
   children: '+',
   onClick: function () {
-    let value = counter.get('value');
+    const counters = [...store.get('counters')];
 
-    counter.set('value', value += 1);
+    counters[index] = { value: counters[index].value + 1 };
+
+    store.set('counters', counters);
   }
 });
 
-const decreaseButton = block('button', {
+const decreaseButton = (index) => block('button', {
   className: 'sidebar-decrease-button',
   children: '-',
   onClick: function () {
-    let value = counter.get('value');
+    const counters = [...store.get('counters')];
 
-    counter.set('value', value -= 1);
+    counters[index] = { value: counters[index].value - 1 };
+
+    store.set('counters', counters);
   }
 });
 
-const sidebar = block(
-  'div',
-  {
-    className: 'sidebar',
-    id: 'sidebar',
+const children = [
+  block('div', {
+    className: 'counter',
     children: [
-      increaseButton,
-      counterValueComponent,
+      increaseButton(0),
+      new counterValue({ index: 0, store }),
       decreaseButton,
     ],
-  }
-);
+  }),
+  block('div', {
+    className: 'counter',
+    children: [
+      increaseButton(1),
+      new counterValue({ index: 1, store }),
+      decreaseButton,
+    ],
+  }),
+];
+
+const sidebar = block('div', {
+  className: 'sidebar',
+  id: 'sidebar',
+  children,
+});
 
 export default sidebar;

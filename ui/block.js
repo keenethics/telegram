@@ -1,11 +1,7 @@
 const childrenFallback = function (children) {
-  if (typeof children === 'object'
-    && children.render
-  ) {
-    return children.render();
-  }
-
+  if (typeof children === 'string') return document.createTextNode(children);
   if (typeof children === 'function') return children();
+  if (typeof children === 'object' && children.render) return children.render();
 
   return children;
 }
@@ -28,6 +24,7 @@ export default function block (type, parameters) {
       case 'children':
         if (Array.isArray(targetValue)) {
           for (let t = targetValue.length - 1; t >= 0; t -= 1) {
+            console.log(targetValue[t]);
             element.insertBefore(childrenFallback(targetValue[t]), element.firstChild);
           }
 
