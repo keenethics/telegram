@@ -8,16 +8,16 @@ import propsAreValid from '../helpers/propsChecker';
  * @param {string} [props.id]
  * @param {string} [props.className]
  * @param {object} [props.children] - an array of func, block or class based components
- * @param {object} [props.eventHandlers] - { ['eventName']: eventHandler, click: function() { return null; } }
+ * @param {object} [props.events] - { ['eventName']: eventHandler, click: function() { return null; } }
  */
 function Block(props) {
   const propsCheck = propsAreValid(props);
   if (!propsCheck.ok) {
     throw new Error(`Failed to construct DOM Node: ${propsCheck.error}`);
   }
-  this.props = props;
+  this.options = props.options || null;
 
-  const node = document.createElement(props.tag);
+  const node = document.createElement(props.tag || 'div');
 
   const propKeys = Object.keys(props);
   for (let propIndex = 0; propIndex < propKeys.length; propIndex++) {
@@ -38,7 +38,7 @@ function Block(props) {
         }
         break;
 
-      case 'eventHandlers':
+      case 'events':
         for (let event in props[prop]) {
           const boundHandler = props[prop][event].bind(this);
           node.addEventListener(event, boundHandler);

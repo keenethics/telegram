@@ -1,0 +1,15 @@
+.btn {
+  height: 25px;
+  line-height: 22px;
+  padding: 0 10px;
+  background-color: transparent;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  color: #007bff;
+  text-transform: uppercase;
+
+  &.-inverted {
+    border-color: white;
+    color: white;
+  }
+}

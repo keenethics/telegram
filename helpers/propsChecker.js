@@ -1,14 +1,9 @@
-import validHtmlTags from '../const/htmlTags';
 import validDomEvents from '../const/domEvents';
 
 const propsAreValid = (props) => {
   try {
     if (!props || Object.keys(props).length === 0) {
       throw new Error('No props provided');
-    }
-
-    if (!props.tag || !validHtmlTags.includes(props.tag)) {
-      throw new Error('props.tag isn\'t valid HTML tag');
     }
 
     if (props.id && typeof props.id !== 'string') {

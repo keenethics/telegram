@@ -4,4 +4,4 @@ import './styles/index.scss';
 
 import Header from './components/header';
 
-render('root', Header);
+render('root', Header());

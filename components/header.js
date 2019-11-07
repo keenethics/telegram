@@ -1,22 +1,26 @@
 import { Block } from '../ui';
+import Button from './common/button';
+import Logo from './logo';
 
-const Header = new Block({
+const Header = () => new Block({
   tag: 'header',
-  className: 'header-class',
-  id: 'header-id',
   children: [
-    'i am simple text',
-    new Block({ tag: 'span', children: ['hi i am nested html element'] })
+    Logo(),
+    new Block({
+      children: [
+        Button({
+          className: '-inverted',
+          events: { click: () => console.log('button 1 clicked') },
+          children: ['button 1']
+        }),
+        Button({
+          className: '-inverted',
+          events: { click: () => console.log('button 2 clicked') },
+          children: ['button 2']
+        }),
+      ]
+    })
   ],
-  eventHandlers: {
-    click: function (event) {
-      console.log(event);
-      console.log('click caught!');
-    },
-    mouseenter: () => {
-      console.log('mouse entered!');
-    },
-  }
 });
 
 export default Header;
