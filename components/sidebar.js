@@ -8,18 +8,32 @@ class counterValue extends Component {
   constructor (props) {
     super(props);
 
-    window.events.subscribe('change', this.render);
+    this.counter = props.counter;
+    this.element = null;
+
+    this.render = this.render.bind(this);
+
+    props.counter.subscribe(this.render);
   }
 
   render () {
-    return block('div', {
+    const counter = this.counter.get('value');
+    const element = block('div', {
       className: 'sidebar-increase-button',
-      children: 0,
+      children: counter,
     });
+
+    if (!this.element) {
+      this.element = element;
+
+      return this.element;
+    }
+
+    this.element.innerHTML = counter.toString();
   }
 }
 
-const counterValueComponent = new counterValue(counter);
+const counterValueComponent = new counterValue({ counter });
 
 const increaseButton = block('button', {
   className: 'sidebar-increase-button',

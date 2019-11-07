@@ -1,11 +1,7 @@
 const childrenFallback = function (children) {
-  console.log(children);
-  if (typeof children === 'function'
-    && children.__proto__
-    && children.__proto__.render
+  if (typeof children === 'object'
+    && children.render
   ) {
-    console.log(children);
-    console.log('------');
     return children.render();
   }
 
