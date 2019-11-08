@@ -2,7 +2,8 @@ import nanoid from 'nanoid';
 
 export default class Store {
   constructor (store) {
-    this.id = nanoid();
+    const id = nanoid();
+    this.id = id;
 
     this.store = new Proxy(store, {
       get: function (target, property) {
@@ -10,8 +11,8 @@ export default class Store {
       },
       set: function (target, key, value) {
         Object.assign(target, { [key]: value });
+        window.events.publish(`${id}-${key}`);
 
-        window.events.publish(`${this.id}-${key}`);
         return true;
       }
     });
