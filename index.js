@@ -2,6 +2,6 @@ import { render } from './ui';
 
 import './styles/index.scss';
 
-import Header from './components/header';
+import App from './components/app';
 
-render('root', Header());
+render('root', App());

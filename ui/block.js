@@ -28,22 +28,29 @@ function Block(props) {
     switch (prop) {
       case 'id':
         node.id = props[prop];
-        break;
 
+        break;
       case 'className':
         node.className = props[prop];
+
         break;
       case 'children':
         for (let childIndex = 0; childIndex < props[prop].length; childIndex++) {
           node.append(props[prop][childIndex]);
         }
-        break;
 
+        break;
+      case 'role':
+        node.setAttribute('role', props[prop]);
+
+        break;
       case 'events':
         for (let event in props[prop]) {
           const boundHandler = props[prop][event].bind(this);
+
           node.addEventListener(event, boundHandler);
         }
+
         break;
 
       default:
