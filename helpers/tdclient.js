@@ -148,12 +148,29 @@ class TDClient {
   }
 
   getChats() {
-    return this.client.send({
-      '@type': 'getChats',
-      limit: 20,
-      offset_chat_id: 0,
-      offset_order: '9223372036854775807',
-    });
+    return this.client
+      .send({
+        '@type': 'getChats',
+        limit: 2147483647,
+        offset_chat_id: 0,
+        offset_order: '9223372036854775807',
+      })
+      .then(async (result) => {
+        const chats = {};
+        await Promise.all(
+          result.chat_ids.map((id) =>
+            this.client
+              .send({ '@type': 'getChat', chat_id: id })
+              .then((chat) => {
+                chats[chat.id] = chat;
+
+                return chat;
+              })
+          )
+        );
+
+        return chats;
+      });
   }
 
   getChatHistory(id) {
