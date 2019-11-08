@@ -9,9 +9,11 @@ export default class Store {
         return target[property];
       },
       set: function (target, key, value) {
-        window.events.publish('change');
+        Object.assign(target, { [key]: value });
 
-        return Object.assign(target, { [key]: value });
+        window.events.publish(`${this.id}-${key}`);
+
+        return true;
       }
     });
   }
@@ -26,7 +28,7 @@ export default class Store {
     return Object.assign({}, this.store);
   }
 
-  subscribe (callback) {
-    window.events.subscribe('change', callback);
+  subscribe (key, callback) {
+    window.events.subscribe(`${this.id}-${key}`, callback);
   }
 }
