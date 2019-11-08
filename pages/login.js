@@ -12,7 +12,7 @@ const LoginPage = () => new Block({
         new Block({
           tag: 'h1',
           children: [
-            'Sign in to Telegram',
+            'Sign in to Telegram ',
             new Block({
               tag: 'span',
               children: [

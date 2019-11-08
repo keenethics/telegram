@@ -41,7 +41,7 @@ class App {
       return this.element;
     }
 
-    this.element.innerHtml = page;
+    this.element.replaceWith(element);
   }
 }
 
