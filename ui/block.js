@@ -24,7 +24,6 @@ export default function block (type, parameters) {
       case 'children':
         if (Array.isArray(targetValue)) {
           for (let t = targetValue.length - 1; t >= 0; t -= 1) {
-            console.log(targetValue[t]);
             element.insertBefore(childrenFallback(targetValue[t]), element.firstChild);
           }
 

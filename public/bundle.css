@@ -16,4 +16,30 @@ html, body {
   height: 100%;
   background: #fff;
   border-right: 1px solid #dadce0;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.counter {
+  width: 200px;
+  padding: 15px;
+  margin: 0 0 15px;
+  border-radius: 10px;
+  background: #c4c9cc;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.counter button {
+  width: 33%;
+  height: 25px;
+  text-align: center;
+  float: left;
+}
+
+.counter div {
+  width: 33%;
+  float: left;
+  text-align: center;
+  padding: 3px 0;
 }

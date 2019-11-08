@@ -27,8 +27,6 @@ class counterValue extends Component {
   render () {
     const counter = this.store.get('counters')[this.index].value;
 
-    console.log(this.store.get('counters'));
-
     const element = block('div', {
       className: 'sidebar-increase-button',
       children: counter,
@@ -74,7 +72,7 @@ const children = [
     children: [
       increaseButton(0),
       new counterValue({ index: 0, store }),
-      decreaseButton,
+      decreaseButton(0),
     ],
   }),
   block('div', {
@@ -82,7 +80,7 @@ const children = [
     children: [
       increaseButton(1),
       new counterValue({ index: 1, store }),
-      decreaseButton,
+      decreaseButton(1),
     ],
   }),
 ];
