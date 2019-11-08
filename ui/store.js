@@ -12,7 +12,6 @@ export default class Store {
         Object.assign(target, { [key]: value });
 
         window.events.publish(`${this.id}-${key}`);
-
         return true;
       }
     });

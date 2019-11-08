@@ -12,14 +12,16 @@ import propsAreValid from '../helpers/propsChecker';
  */
 function Block(props) {
   const propsCheck = propsAreValid(props);
+
   if (!propsCheck.ok) {
     throw new Error(`Failed to construct DOM Node: ${propsCheck.error}`);
   }
+
   this.options = props.options || null;
 
   const node = document.createElement(props.tag || 'div');
-
   const propKeys = Object.keys(props);
+
   for (let propIndex = 0; propIndex < propKeys.length; propIndex++) {
     const prop = propKeys[propIndex];
 
@@ -31,7 +33,6 @@ function Block(props) {
       case 'className':
         node.className = props[prop];
         break;
-
       case 'children':
         for (let childIndex = 0; childIndex < props[prop].length; childIndex++) {
           node.append(props[prop][childIndex]);
