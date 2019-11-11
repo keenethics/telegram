@@ -13,7 +13,6 @@ export default class BaseComponent {
   }
 
   rerender() {
-    console.log('update');
     const node = this.render();
 
     this.node.replaceWith(node);

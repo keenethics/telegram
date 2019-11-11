@@ -1,4 +1,5 @@
 import { Block, Component } from '../ui';
+import Button from '../components/common/button';
 
 class LoginPage extends Component {
   constructor (props) {
@@ -8,9 +9,7 @@ class LoginPage extends Component {
   render () {
     const { store } = this.props;
 
-    const phone = store.get('phoneNumber');
-
-    console.log(phone);
+    const phoneNumber = store.get('phoneNumber');
 
     return new Block({
       className: 'page login-page',
@@ -39,12 +38,21 @@ class LoginPage extends Component {
           tag: 'input',
           className: 'textfield',
           placeholder: 'Phone number',
-          value: phone,
           events: {
             input: function ({ target }) {
               store.set('phoneNumber', target.value);
-            }
-          }
+            },
+          },
+          attributes: {
+            placeholder: 'Phone number',
+            value: phoneNumber,
+          },
+        }),
+        Button({
+          events: { click: () => {
+
+          } },
+          children: ['log in']
         }),
       ],
     });

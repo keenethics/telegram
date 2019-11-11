@@ -1,11 +1,13 @@
+/**
+ * Deprecated, left there for example
+ */
+
 window.events = (function () {
   function PubSub() {
   }
   PubSub.subscribe = function (eventName, func) {
       this.initDic(eventName);
       this.dic[eventName].push(func);
-
-      console.log(this.dic);
   };
   PubSub.unsubscribe = function (eventName, func) {
       this.initDic(eventName);
@@ -21,8 +23,6 @@ window.events = (function () {
               var func = _a[_i];
               func(data);
           }
-
-        console.log(this.dic);
   };
   PubSub.initDic = function (eventName) {
       if (!this.dic) {

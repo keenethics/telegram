@@ -9,6 +9,7 @@ import propsAreValid from '../helpers/propsChecker';
  * @param {string} [props.className]
  * @param {object} [props.children] - an array of func, block or class based components
  * @param {object} [props.events] - { ['eventName']: eventHandler, click: function() { return null; } }
+ * @param {object} [props.attributes] - list of key:values that will be set directly as dom node attributes
  */
 function Block(props) {
   const propsCheck = propsAreValid(props);
@@ -60,20 +61,16 @@ function Block(props) {
         node.setAttribute('href', props[prop]);
 
         break;
+      case 'attributes':
+        for (let attribute in props[prop]) {
+          node.setAttribute(attribute, props[prop][attribute]);
+        }
+
+        break;
       default:
         break;
     }
   }
-
-  // TODO move to BaseComponent, Block doesnt need it
-  // this.destroy = () => {
-  //   if (props.eventHandlers) {
-  //     for (let event in props.eventHandlers) {
-  //       node.removeEventListener(event, props.eventHandlers[event]);
-  //     }
-  //   }
-  //   node.remove();
-  // }
 
   return node;
 }

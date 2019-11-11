@@ -37,6 +37,12 @@ parentComponent = () => new Block({
       children: [
         'Button label',
       ],
+      // attributes that will be passed directly to dom node
+      attributes: {
+        'data-something': 'something',
+        type: 'submit',
+        placeholder: 'enter something',
+      },
     })
   ]
 })
