@@ -8,7 +8,9 @@ class LoginPage extends Component {
   render () {
     const { store } = this.props;
 
-    const login = store.get();
+    const phone = store.get('phoneNumber');
+
+    console.log(phone);
 
     return new Block({
       className: 'page login-page',
@@ -35,10 +37,12 @@ class LoginPage extends Component {
         }),
         new Block({
           tag: 'input',
-          className: 'textarea',
+          className: 'textfield',
           placeholder: 'Phone number',
+          value: phone,
           events: {
-            input: function () {
+            input: function ({ target }) {
+              store.set('phoneNumber', target.value);
             }
           }
         }),

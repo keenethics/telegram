@@ -5,7 +5,7 @@ export default class BaseComponent {
     this.render = this.render.bind(this);
     this.rerender = this.rerender.bind(this);
 
-    if (this.props.store) this.props.store.subscribe('page', this.rerender);
+    if (this.props.store && this.props.field) this.props.store.subscribe(this.props.field, this.rerender);
 
     this.node = this.render();
 
@@ -13,6 +13,7 @@ export default class BaseComponent {
   }
 
   rerender() {
+    console.log('update');
     const node = this.render();
 
     this.node.replaceWith(node);

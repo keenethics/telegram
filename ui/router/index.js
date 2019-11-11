@@ -4,8 +4,11 @@ import { Router } from './router.js';
 import { Block } from './../index.js';
 
 const handler = (route) => {
-    appStore.set('page', route.path);
-    if (!route.name) console.log('path was not found');
+    const prevPage = appStore.get('page');
+    if (prevPage !== route.path) {
+        appStore.set('page', route.path);
+        if (!route.name) console.log('path was not found');
+    }
 };
 
 const router = new Router();

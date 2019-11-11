@@ -34,6 +34,10 @@ function Block(props) {
         node.className = props[prop];
 
         break;
+      case 'value':
+          node.value = props[prop];
+
+          break;
       case 'children':
         for (let childIndex = 0; childIndex < props[prop].length; childIndex++) {
           node.append(props[prop][childIndex]);
@@ -53,7 +57,7 @@ function Block(props) {
 
         break;
       case 'href':
-        node.setAttribute('href', props[prop]); 
+        node.setAttribute('href', props[prop]);
 
         break;
       default:

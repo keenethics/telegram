@@ -2,7 +2,6 @@ const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
-  devtool: 'cheap-eval-source-map',
   entry: './index.js',
   output: {
     path: path.resolve(__dirname, 'public'),

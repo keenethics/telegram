@@ -24,7 +24,7 @@ class App extends Component {
       role: 'main',
       children: [
         Header(),
-        page === '/' ? new LoginPage({ store: loginStore }) : ChatPage(),
+        page === '/' ? new LoginPage({ store: loginStore, field: 'phoneNumber' }) : ChatPage(),
       ],
     });
   }
@@ -32,6 +32,7 @@ class App extends Component {
 
 const AppWrapper = new App({
   store: appStore,
+  field: 'page',
 });
 
 export default AppWrapper;
