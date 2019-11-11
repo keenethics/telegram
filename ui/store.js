@@ -39,7 +39,7 @@ export default class Store {
       if (sub.fields === null) {
         return sub.callback(Object.assign({}, this.store));
       }
-      const intersectingFields = fields.filter(f => sub.keys.includes(f));
+      const intersectingFields = fields.filter(f => sub.fields.includes(f));
 
       if (intersectingFields.length > 0) {
         const updatedFields = {};
@@ -113,10 +113,7 @@ export default class Store {
       return res;
     }
     
-
     return Object.assign({}, this.store);
-
-    
   }
 
   /**

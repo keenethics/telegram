@@ -9,6 +9,7 @@ import propsAreValid from '../helpers/propsChecker';
  * @param {string} [props.className]
  * @param {object} [props.children] - an array of func, block or class based components
  * @param {object} [props.events] - { ['eventName']: eventHandler, click: function() { return null; } }
+ * @param {object} [props.attributes] - list of key:values that will be set directly as dom node attributes
  */
 function Block(props) {
   const propsCheck = propsAreValid(props);
