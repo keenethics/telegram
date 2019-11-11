@@ -59,7 +59,9 @@ function Block(props) {
         break;
       case 'attributes':
         for (let attribute in props[prop]) {
-          node.setAttribute(attribute, props[prop][attribute]);
+          if (props[prop][attribute] !== undefined) {
+            node.setAttribute(attribute, props[prop][attribute]);
+          }
         }
 
         break;
