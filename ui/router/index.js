@@ -1,21 +1,17 @@
+import appStore from '../../stores/app';
+
 import { Router } from './router.js';
-import Store from './../store.js';
 import { Block } from './../index.js';
 
-const appStore = new Store({
-    page: 'root',
-});
-
 const handler = (route) => {
-    appStore.set('router', route.path);
+    appStore.set('page', route.path);
     if (!route.name) console.log('path was not found');
 };
 
 const router = new Router();
 router.root = '/';
 router.add({name: 'home', path: '/', handler});
-router.add({name: 'about', path: '/about', handler});
-router.add({name: 'test', path: '/test', handler});
+router.add({name: 'chat', path: '/chat', handler});
 
 // initial navigation
 router.navigate(window.location.pathname);

@@ -20,7 +20,6 @@ export default class Store {
 
   set (key, value) {
     this.store[key] = value;
-    console.log(key, value);
   }
 
   get (key) {

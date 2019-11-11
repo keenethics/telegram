@@ -1,5 +1,4 @@
 import { Block, Component } from '../ui';
-import { Link } from '../ui/router';
 
 class LoginPage extends Component {
   constructor (props) {
@@ -42,14 +41,6 @@ class LoginPage extends Component {
             input: function () {
             }
           }
-        }),
-        Link({
-          to: '/about',
-          children: ['Link to Test     ...    ']
-        }),
-        Link({
-          to: '/',
-          children: ['\nLink to / ']
         }),
       ],
     });

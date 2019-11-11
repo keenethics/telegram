@@ -16,5 +16,6 @@ export default class BaseComponent {
     const node = this.render();
 
     this.node.replaceWith(node);
+    this.node = node;
   }
 }
