@@ -67,7 +67,7 @@ class TDClient {
   }
 
   init() {
-    this.client.onUpdate = this.__onUpdate;
+    this.client.onUpdate = this.__onUpdate.bind(this);
 
     this.client.send({
       '@type': 'setTdlibParameters',
@@ -89,7 +89,7 @@ class TDClient {
     });
   }
 
-  __onUpdate = (update) => {
+  __onUpdate(update) {
     if (this.showLog) {
       if (update['@type'] === 'updateFile') {
         console.log('receive updateFile file_id=' + update.file.id, update);
@@ -106,9 +106,9 @@ class TDClient {
       this.client.send({ '@type': 'checkDatabaseEncryptionKey' });
     }
     // this.emit('update', update);
-  };
+  }
 
-  send = (request) => {
+  send(request) {
     if (this.showLog) {
       console.log('send', request);
       return this.client
@@ -125,7 +125,7 @@ class TDClient {
     } else {
       return this.client.send(request);
     }
-  };
+  }
 
   logOut() {
     this.send({ '@type': 'logOut' });
