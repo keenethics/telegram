@@ -28,9 +28,9 @@ class App extends Component {
         ChatPage(),
       ],
       events: {
-        click: () => {
-          store.set('page', 'chat');
-        }
+        // click: () => {
+        //   store.set('page', 'chat');
+        // }
       }
     });
   }
