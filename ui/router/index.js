@@ -19,6 +19,9 @@ router.add({name: 'test', path: '/test', handler});
 
 // initial navigation
 router.navigate(window.location.pathname);
+window.onpopstate = function (e) {
+    router.navigate(window.location.pathname);
+}
 
 const LinkComponent = (props) => {
     const handleLinkClick = (e) => {
