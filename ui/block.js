@@ -53,6 +53,12 @@ function Block(props) {
 
         break;
 
+      case 'attributes':
+        for (let attribute in props[prop]) {
+          node.setAttribute(attribute, props[prop][attribute]);
+        }
+
+        break;
       default:
         break;
     }

@@ -22,7 +22,7 @@ export default class Store {
   _createSubscription(keys, callback) {
     const subscription = {
       id: nanoid(5),
-      keys,
+      fields: keys,
       callback,
     };
     this.subscriptions.push(subscription);
@@ -36,7 +36,6 @@ export default class Store {
   _callSubscriptions(fields) {
     for (let sIndex = 0; sIndex < this.subscriptions.length; sIndex++) {
       const sub = this.subscriptions[sIndex];
-      console.log(sub);
       if (sub.fields === null) {
         return sub.callback(Object.assign({}, this.store));
       }
