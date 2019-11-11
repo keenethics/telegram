@@ -1,33 +1,20 @@
 export default class BaseComponent {
   constructor(props) {
-    // props.subscription will be passed by withSubscription
-    const {
-      store, fields
-    } = props.subscription;
+    this.props = props || {};
 
-    store.subscribe(fields, this._onUpdate);
+    this.render = this.render.bind(this);
+    this.rerender = this.rerender.bind(this);
+
+    if (this.props.store) this.props.store.subscribe('page', this.rerender);
+
+    this.node = this.render();
+
+    return this.node;
   }
 
-  _onUpdate(value) {
-    if (this.onUpdate) return this.onUpdate(value);
-    throw new Error(
-      'It seems that you\'ve subscribed to store updates but didn\'t define `onUpdate method`'
-    );
-      
+  rerender() {
+    const node = this.render();
+
+    this.node.replaceWith(node);
   }
-
-  // render() {
-  //   const {
-  //     tag,
-  //     className,
-  //     children,
-  //     events,
-  //   } = this.props;
-
-  //   return block(tag, {
-  //     className,
-  //     children,
-  //     events,
-  //   });
-  // }
 }
