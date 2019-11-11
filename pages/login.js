@@ -36,8 +36,8 @@ class LoginPage extends Component {
         }),
         new Block({
           tag: 'input',
-          className: 'textfield',
-          placeholder: 'Phone number',
+          className: 'textarea',
+          id: 'elem-phonenumber',
           events: {
             input: function ({ target }) {
               store.set('phoneNumber', target.value);
