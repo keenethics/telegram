@@ -1,4 +1,4 @@
-import { Store } from '../ui';
+import Store from '../ui/store';
 
 describe("Store", () => {
   let store = null;

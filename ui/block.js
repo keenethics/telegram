@@ -52,7 +52,10 @@ function Block(props) {
         }
 
         break;
+      case 'href':
+        node.setAttribute('href', props[prop]); 
 
+        break;
       case 'attributes':
         for (let attribute in props[prop]) {
           node.setAttribute(attribute, props[prop][attribute]);
