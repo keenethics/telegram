@@ -1,5 +1,4 @@
 import { Block, Component } from '../ui';
-import Button from '../components/common/button';
 
 class LoginPage extends Component {
   constructor (props) {
@@ -15,44 +14,41 @@ class LoginPage extends Component {
       className: 'page login-page',
       children: [
         new Block({
-          className: 'login-page-header',
+          className: 'login-page-form',
           children: [
             new Block({
+              tag: 'img',
               className: 'logo',
             }),
             new Block({
               tag: 'h1',
               children: [
                 'Sign in to Telegram ',
-                new Block({
-                  tag: 'span',
-                  children: [
-                    'Please confirm your country and enter your phone number.'
-                  ]
-                }),
               ],
-            })
+            }),
+            new Block({
+              tag: 'span',
+              children: [
+                'Please confirm your country and',
+                new Block({ tag: 'br' }),
+                'enter your phone number.'
+              ]
+            }),
+            new Block({
+              tag: 'input',
+              className: 'input',
+              id: 'elem-phonenumber',
+              events: {
+                input: function ({ target }) {
+                  store.set('phoneNumber', target.value);
+                },
+              },
+              attributes: {
+                placeholder: 'Phone number',
+                value: phoneNumber,
+              },
+            }),
           ]
-        }),
-        new Block({
-          tag: 'input',
-          className: 'textarea',
-          id: 'elem-phonenumber',
-          events: {
-            input: function ({ target }) {
-              store.set('phoneNumber', target.value);
-            },
-          },
-          attributes: {
-            placeholder: 'Phone number',
-            value: phoneNumber,
-          },
-        }),
-        Button({
-          events: { click: () => {
-
-          } },
-          children: ['log in']
         }),
       ],
     });

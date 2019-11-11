@@ -1,0 +1,30 @@
+// 3 dots button
+$more-button-dark: #707579;
+$more-button-dark-hover: $more-button-dark;
+$more-button-dark-hover-bg: rgba($more-button-dark, .08);
+$more-button-dark-click-bg: rgba($more-button-dark, .08);
+
+$more-button-light: rgba(#fff, .5);
+$more-button-light-hover: #fff;
+$more-button-light-hover-bg: rgba(#fff, 0.08);
+$more-button-light-click-bg: $more-button-light-hover-bg;
+
+// nav items
+$nav-item-color: #707579;
+$nav-item-hover-bg: rgba($nav-item-color, .08);
+$nav-item-click-bg: $nav-item-hover-bg;
+
+// buttons
+$button-dark-bg: #4ea4f6;
+$button-dark-hover-bg: #4796e1;
+$button-dark-click-bg: rgba(#000, .08);
+
+$button-light-color: #3390ec;
+$button-light-hover-bg: rgba(#707579, .08);
+$button-light-click-bg: rgba(#707579, .08);
+
+// inputs
+$input-placeholder-color: #a2acb4;
+$input-border-color: #dadce0;
+$input-hover-border-color: #000;
+$input-focus-border-color: #4ea4f6;
