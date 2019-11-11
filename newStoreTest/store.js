@@ -13,7 +13,7 @@ export default class Store {
       },
 
       set: function(target, key, value) {
-        Object.assing(target, { [key]: value });
+        Object.assign(target, { [key]: value });
         return true;
       }
     });
@@ -51,6 +51,14 @@ export default class Store {
     }
   }
 
+  _noKey (field) {
+    let msg = 'You\'ve asked for non-existent fields';
+    if (field) {
+      msg = `Field ${field} doesn't exist in store`;
+    }
+    throw new Error(msg)
+  }
+
   /**
    * Set's new value(s) to store.
    * Accepts 1 arg - object with key-value pair(s) to set
@@ -58,24 +66,21 @@ export default class Store {
    * Accepts 2 args - key and value
    */
   set (key, value = null) {
-    const noKey = (field) =>{
-      throw new Error(`Field ${field} doesn't exist in store`)
-    };
     // object passed
     if (value === null) {
       const keys = Object.keys(key);
       for (let keyIndex = 0; keyIndex < keys.length; keyIndex++) {
         if (!this._storeKeys.includes(keys[keyIndex])) {
-          noKey(keys[keyIndex]);
+          this._noKey(keys[keyIndex]);
         }
-        this.store[key] = key[keys[keyIndex]];
+        this.store[keys[keyIndex]] = key[keys[keyIndex]];
       }
       this._callSubscriptions(keys);
       return true;
     }
 
     if (!this._storeKeys.includes(key)) {
-      noKey(key);
+      this._noKey(key);
     }
 
     this.store[key] = value;
@@ -84,15 +89,34 @@ export default class Store {
   }
 
   /**
-   * Gets value of store by key.
+   * Gets value of store by key or array of keys.
    * If no key specified - whole store is returned.
    */
   get (key = null) {
-    if (key === null) {
-      return Object.assign({}, this.store);
+    if (typeof key === 'string') {
+      if (!this._storeKeys.includes(key)) {
+        this._noKey(key);
+      }
+
+      return this.store[key];
     }
 
-    return this.store[key];
+    if (Array.isArray(key)) {
+      if (!key.every(k => this._storeKeys.includes(k))) {
+        this._noKey();
+      }
+
+      const res = {};
+      for (let keyIndex = 0; keyIndex < key.length; keyIndex++) {
+        res[key[keyIndex]] = this.store[key[keyIndex]];
+      }
+      return res;
+    }
+    
+
+    return Object.assign({}, this.store);
+
+    
   }
 
   /**
