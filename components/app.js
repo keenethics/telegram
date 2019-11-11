@@ -1,50 +1,43 @@
-import { Block, Store } from '../ui';
+import { Block, Component } from '../ui';
+
+import appStore from '../stores/app';
+import loginStore from '../stores/login';
 
 import LoginPage from '../pages/login';
 import ChatPage from '../pages/chat';
 
-const appStore = new Store({
-  page: 'login',
-});
-
-class App {
-  constructor () {
-    this.element = null;
-
-    this.render = this.render.bind(this);
-
-    appStore.subscribe('page', this.render);
+class App extends Component {
+  constructor (props) {
+    super(props);
   }
 
   render () {
-    const page = appStore.get('page');
+    const { store } = this.props;
 
-    const element = new Block({
+    const page = store.get('page');
+
+    return new Block({
       tag: 'main',
       className: 'main',
       role: 'main',
       children: page === 'login' ? [
-        LoginPage(),
+        new LoginPage({
+          store: loginStore,
+        }),
       ] : [
         ChatPage(),
       ],
       events: {
-        click: (e) => {
-          appStore.set('page', 'chat');
+        click: () => {
+          store.set('page', 'chat');
         }
       }
     });
-
-    if (!this.element) {
-      this.element = element;
-
-      return this.element;
-    }
-
-    this.element.replaceWith(element);
   }
 }
 
-const AppWrapper = new App();
+const AppWrapper = new App({
+  store: appStore,
+});
 
 export default AppWrapper;

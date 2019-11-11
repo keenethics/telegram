@@ -1,26 +1,20 @@
+export default class BaseComponent {
+  constructor(props) {
+    this.props = props || {};
 
+    this.render = this.render.bind(this);
+    this.rerender = this.rerender.bind(this);
 
-// import { block } from './block';
+    if (this.props.store) this.props.store.subscribe('page', this.rerender);
 
-// export default class BaseComponent {
-//   constructor(props) {
-//     this.props = props;
+    this.node = this.render();
 
-//     window.events.subscribe('change', this.render);
-//   }
+    return this.node;
+  }
 
-//   render() {
-//     const {
-//       tag,
-//       className,
-//       children,
-//       events,
-//     } = this.props;
+  rerender() {
+    const node = this.render();
 
-//     return block(tag, {
-//       className,
-//       children,
-//       events,
-//     });
-//   }
-// }
+    this.node.replaceWith(node);
+  }
+}
