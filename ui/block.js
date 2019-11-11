@@ -58,16 +58,6 @@ function Block(props) {
     }
   }
 
-  // TODO move to BaseComponent, Block doesnt need it
-  // this.destroy = () => {
-  //   if (props.eventHandlers) {
-  //     for (let event in props.eventHandlers) {
-  //       node.removeEventListener(event, props.eventHandlers[event]);
-  //     }
-  //   }
-  //   node.remove();
-  // }
-
   return node;
 }
 

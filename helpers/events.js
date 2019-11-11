@@ -1,3 +1,7 @@
+/**
+ * Deprecated, left there for example
+ */
+
 window.events = (function () {
   function PubSub() {
   }

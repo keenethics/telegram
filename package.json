@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
-    "test": "jest"
+    "test": "jest ./test"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +17,7 @@
     "css-loader": "^3.2.0",
     "eslint": "^6.6.0",
     "eslint-plugin-jest": "^23.0.3",
+    "husky": "^3.0.9",
     "jest": "^24.9.0",
     "node-sass": "^4.13.0",
     "sass-loader": "^8.0.0",
@@ -29,5 +30,10 @@
   "dependencies": {
     "nanoid": "^2.1.6",
     "tdweb": "^1.5.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test"
+    }
   }
 }
