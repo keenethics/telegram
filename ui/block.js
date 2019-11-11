@@ -52,7 +52,10 @@ function Block(props) {
         }
 
         break;
+      case 'href':
+        node.setAttribute('href', props[prop]); 
 
+        break;
       default:
         break;
     }
