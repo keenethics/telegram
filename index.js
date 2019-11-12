@@ -4,4 +4,4 @@ import './styles/index.scss';
 
 import App from './components/app';
 
-render('root', App);
+render('root', App.render());

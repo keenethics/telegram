@@ -8,4 +8,3 @@ export function isHTML(str) {
 
   return false;
 }
-

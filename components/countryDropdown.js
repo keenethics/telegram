@@ -3,7 +3,7 @@ import { Block, Component } from '../ui';
 class CountryDropdown extends Component {
   constructor(props) {
     super(props);
-    console.log(this);
+    
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.setCountry = this.setCountry.bind(this);
   }

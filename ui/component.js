@@ -9,8 +9,6 @@ export default class BaseComponent {
 
     this.node = this.render();
     this.focused = null;
-
-    return this.node;
   }
 
   rerender() {

@@ -41,7 +41,12 @@ function Block(props) {
           break;
       case 'children':
         for (let childIndex = 0; childIndex < props[prop].length; childIndex++) {
-          node.append(props[prop][childIndex]);
+          const child = props[prop][childIndex];
+          if (child.render) {
+            node.append(child.render());
+          } else {
+            node.append(child);
+          }
         }
 
         break;

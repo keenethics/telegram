@@ -20,7 +20,7 @@ const propsAreValid = (props) => {
       }
 
       props.children.forEach((child) => {
-        if (typeof child !== 'string' && !(child instanceof HTMLElement)) {
+        if (typeof child !== 'string' && !(child instanceof HTMLElement) && !child.render) {
           throw new Error(`${child} is not valid child element`);
         }
       });
