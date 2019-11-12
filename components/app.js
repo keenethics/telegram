@@ -3,7 +3,7 @@ import { Block, Component } from '../ui';
 import appStore from '../stores/app';
 import loginStore from '../stores/login';
 
-import Header from '../components/header';
+// import Header from '../components/header';
 
 import LoginPage from '../pages/login';
 import ChatPage from '../pages/chat';
@@ -23,7 +23,7 @@ class App extends Component {
       className: 'main',
       role: 'main',
       children: [
-        Header(),
+        // Header(),
         page === '/' ? new LoginPage({ store: loginStore, field: 'phoneNumber' }) : ChatPage(),
       ],
     });

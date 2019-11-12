@@ -1,4 +1,5 @@
 import { Block, Component } from '../ui';
+import CountryDropdown from '../components/countryDropdown';
 
 class LoginPage extends Component {
   constructor (props) {
@@ -19,6 +20,9 @@ class LoginPage extends Component {
             new Block({
               tag: 'img',
               className: 'logo',
+              attributes: {
+                src: 'assets/tg-icon.png'
+              }
             }),
             new Block({
               tag: 'h1',
@@ -33,6 +37,9 @@ class LoginPage extends Component {
                 new Block({ tag: 'br' }),
                 'enter your phone number.'
               ]
+            }),
+            new CountryDropdown({
+              store,
             }),
             new Block({
               tag: 'input',
