@@ -1,5 +1,5 @@
 import { Block } from '../ui';
-import { Link } from '../ui/router';
+import { Link } from '../router/link';
 
 const Header = () => new Block({
   tag: 'header',
