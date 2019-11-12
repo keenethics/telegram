@@ -1,8 +1,9 @@
 import { Store } from '../ui';
 
 const loginStore = new Store({
-  country: '',
+  phoneNumberPrefix: '',
   phoneNumber: '',
+  countryInput: '',
   countryExpanded: false,
 });
 

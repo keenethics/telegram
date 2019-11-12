@@ -1,7 +1,7 @@
 import nanoid from 'nanoid';
 
 export default class Store {
-  constructor (store) {
+  constructor(store) {
     this.id = nanoid();
     this.subscriptions = [];
 
@@ -12,7 +12,7 @@ export default class Store {
         return target[property];
       },
 
-      set: function(target, key, value) {
+      set: function (target, key, value) {
         Object.assign(target, { [key]: value });
         return true;
       }
@@ -51,7 +51,7 @@ export default class Store {
     }
   }
 
-  _noKey (field) {
+  _noKey(field) {
     let msg = 'You\'ve asked for non-existent fields';
     if (field) {
       msg = `Field ${field} doesn't exist in store`;
@@ -65,7 +65,7 @@ export default class Store {
    * OR
    * Accepts 2 args - key and value
    */
-  set (key, value = null) {
+  set(key, value = null) {
     // object passed
     if (value === null) {
       const keys = Object.keys(key);
@@ -92,7 +92,7 @@ export default class Store {
    * Gets value of store by key or array of keys.
    * If no key specified - whole store is returned.
    */
-  get (key = null) {
+  get(key = null) {
     if (typeof key === 'string') {
       if (!this._storeKeys.includes(key)) {
         this._noKey(key);
@@ -112,7 +112,7 @@ export default class Store {
       }
       return res;
     }
-    
+
     return Object.assign({}, this.store);
   }
 
@@ -121,7 +121,7 @@ export default class Store {
    * @param {string|string[]|null} key - specifies field(s) to which you want to subscribe.
    * Default to null, which will call `callback` on every update.
    */
-  subscribe (key = null, callback) {
+  subscribe(key = null, callback) {
     let subscribeTo = null;
     if (Array.isArray(key)) {
       subscribeTo = key;
@@ -131,7 +131,7 @@ export default class Store {
     return this._createSubscription(subscribeTo, callback);
   }
 
-  unsubscribe (subId) {
+  unsubscribe(subId) {
     if (!subId) {
       throw new Error('No subscription ID specified');
     }

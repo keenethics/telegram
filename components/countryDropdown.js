@@ -1,42 +1,74 @@
 import { Block, Component } from '../ui';
+import countries from '../const/countries';
 
 class CountryDropdown extends Component {
   constructor(props) {
     super(props);
-    
-    this.toggleDropdown = this.toggleDropdown.bind(this);
+
+    this.searchCountry = this.searchCountry.bind(this);
     this.setCountry = this.setCountry.bind(this);
   }
 
-  toggleDropdown() {
+  toggleExpand(to = false) {
     const { store } = this.props;
-    const isOpen = store.get('countryExpanded');
-    store.set('countryExpanded', !isOpen);
+    store.set('countryExpanded', to);
   }
 
-  setCountry(event) {
-    const value = event.target.getAttribute('data-value');
-    if (!value) {
-      throw new Error('Invalid country value');
+  searchCountry() {
+    const { store } = this.props;
+    store.set('countryInput', event.target.value);
+  }
+
+  setCountry({ target }) {
+    const cName = target.getAttribute('data-countryName');
+    const cNumber = target.getAttribute('data-countryNumber')
+    if (!cName || !cNumber) {
+      throw new Error('Invalid country name or number!');
     }
     const { store } = this.props;
-    store.set('country', value);
+    store.set({
+      countryInput: cName,
+      phoneNumberPrefix: cNumber,
+    });
   }
 
   render() {
+    /**
+     * 4. filter countries by input value
+     */
     const { store } = this.props;
 
-    const { phoneNumber, country } = store.get(['phoneNumber', 'country']);
-
+    const { countryInput, countryExpanded } = store.get(['countryInput', 'countryExpanded']);
+    console.log(countryExpanded);
+    console.log(`dropdown ${countryExpanded ? 'dropdown__expanded' : ''}`);
     return new Block({
-      className: 'dropdown country-dropdown',
+      className: `dropdown ${countryExpanded ? 'dropdown__expanded' : ''}`,
       children: [
         new Block({
-          className: 'dropdown--toggle',
-          children: ['Country'],
+          tag: 'input',
+          className: 'dropdown--input',
+          value: countryInput,
           events: {
-            click: this.toggleDropdown,
+            input: this.searchCountry,
+            focus: () => this.toggleExpand(true),
+            blur: () => this.toggleExpand(false),
+          },
+          attributes: {
+            tabindex: "0",
+            placeholder: "Country",
           }
+        }),
+        new Block({
+          className: 'dropdown--menu',
+          children: countries.map((c) => new Block({
+            className: 'dropdown--menu--item',
+            events: this.setCountry,
+            attributes: {
+              'data-countryName': c.name,
+              'data-countryNumber': c.number,
+            },
+            children: [c.name]
+          }))
         })
       ]
     });

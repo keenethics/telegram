@@ -2,11 +2,11 @@ import { Block, Component } from '../ui';
 import CountryDropdown from '../components/countryDropdown';
 
 class LoginPage extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
   }
 
-  render () {
+  render() {
     const { store } = this.props;
 
     const phoneNumber = store.get('phoneNumber');
@@ -27,7 +27,7 @@ class LoginPage extends Component {
             new Block({
               tag: 'h1',
               children: [
-                'Sign in to Telegram ',
+                'Sign in to Telegram',
               ],
             }),
             new Block({
@@ -40,6 +40,7 @@ class LoginPage extends Component {
             }),
             new CountryDropdown({
               store,
+              field: ['countryInput', 'countryExpanded']
             }),
             new Block({
               tag: 'input',
@@ -51,7 +52,7 @@ class LoginPage extends Component {
                 },
               },
               attributes: {
-                placeholder: 'Phone number',
+                placeholder: 'Phone Number',
                 value: phoneNumber,
               },
             }),
